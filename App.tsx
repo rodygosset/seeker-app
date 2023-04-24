@@ -22,7 +22,8 @@ export default function App() {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.text}>Hello, World !</Text>
+			<Text style={styles.text}>Seeker</Text>
+			<Text style={styles.caption}>FIND THE MUSIC YOU’RE LOOKING FOR</Text>
 			<StatusBar style="auto" />
 		</View>
 	)

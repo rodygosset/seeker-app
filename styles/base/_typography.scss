@@ -83,6 +83,10 @@ $text-xs-font-size: 12;
 
 // header 3
 
+@mixin header-3-light {
+    @include typo-maker($h3-font-size, $font-weight-light);
+}
+
 @mixin header-3-regular {
     @include typo-maker($h3-font-size, $font-weight-regular);
 }
