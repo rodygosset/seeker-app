@@ -1,10 +1,14 @@
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
-import { fonts } from './utils/fonts';
+import { fonts } from '@utils/fonts';
+
+import styles from "@styles/screens/app.scss"
 
 export default function App() {
 
+
+	console.log({styles})
 
 	// load the fonts
 
@@ -17,8 +21,8 @@ export default function App() {
 	// render
 
 	return (
-		<View>
-			<Text>Open up App.tsx to start working on your app!</Text>
+		<View style={styles.container}>
+			<Text style={styles.text}>Hello, World !</Text>
 			<StatusBar style="auto" />
 		</View>
 	)

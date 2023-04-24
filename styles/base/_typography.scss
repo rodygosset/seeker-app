@@ -1,4 +1,4 @@
-@import "@styles/base/_reset.scss";
+@import "./styles/base/_reset.scss";
 
 
 
@@ -11,33 +11,29 @@ $font-weight-medium: "Medium";
 $font-weight-semibold: "SemiBold";
 $font-weight-bold: "Bold";
 
-$hero-font-size: 6rem;
-$h1-font-size: 4.8rem;
-$h2-font-size: 3.4rem;
-$h3-font-size: 2.4rem;
-$h4-font-size: 2rem;
-$text-xl-font-size: 2rem;
-$text-md-font-size: 1.6rem;
-$text-sm-font-size: 1.4rem;
-$text-xs-font-size: 1.2rem;
+// font size
 
-@mixin reset-typography($font-family: $main-font) {
+$h1-font-size: 48;
+$h2-font-size: 34;
+$h3-font-size: 24;
+$h4-font-size: 20;
+$text-xl-font-size: 20;
+$text-md-font-size: 16;
+$text-sm-font-size: 14;
+$text-xs-font-size: 12;
+
+@mixin reset-typography($font-family) {
     margin: 0;
     padding: 0;
     font-family: $font-family;
-    width: fit-content;
+    // width: fit-content;
 }
 
 @mixin typo-maker($font-size, $font-weight) {
-    @include reset-typography($font-family + "-" + $font-weight);
+    @include reset-typography($main-font + "-" + $font-weight);
     font-size: $font-size;
 }
 
-// hero text
-
-@mixin hero-text {
-    @include typo-maker($hero-font-size, $font-weight-regular);
-}
 
 // header 1
 
