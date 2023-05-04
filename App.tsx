@@ -1,31 +1,38 @@
-import { useFonts } from 'expo-font';
-import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
-import { fonts } from '@utils/fonts';
 
-import styles from "@styles/screens/app.scss"
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Explore from '@screens/explore';
+import Home from '@screens/home';
+
+// this component serves as the kernel of the app
+
+
+// nav conf
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
 
+	// implement navigation
 
-	console.log({styles})
-
-	// load the fonts
-
-	const [fontsLoaded] = useFonts(fonts)
-
-	// don't display anything until the fonts are loaded
-
-	if(!fontsLoaded) return <View></View>
 
 	// render
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.text}>Seeker</Text>
-			<Text style={styles.caption}>FIND THE MUSIC YOU’RE LOOKING FOR</Text>
-			<StatusBar style="auto" />
-		</View>
+		<NavigationContainer>
+			<Stack.Navigator 
+				screenOptions={{  headerShown: false }}>
+				<Stack.Screen 
+					name="Home" 
+					component={Home}
+					options={{  }}
+				/>
+				<Stack.Screen 
+					name="Explore" 
+					component={Explore}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
 	)
 }
 

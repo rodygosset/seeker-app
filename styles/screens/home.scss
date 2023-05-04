@@ -9,6 +9,17 @@
     height: 100%;
 
     @include flex-container(column, nowrap, center, center);
+    padding: 64px 16px;
+    gap: 60px;
+    background: $white;
+
+}
+
+.hero {
+
+    width: 100%;
+
+    @include flex-container(column, nowrap, center, center);
     gap: 7px;
 
 }

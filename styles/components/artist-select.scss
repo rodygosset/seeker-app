@@ -1,0 +1,20 @@
+@import "./styles/abstracts/_colors.scss";
+@import "./styles/base/_typography.scss";
+@import "./styles/base/_mixins.scss";
+
+
+.container {
+    width: 100%;
+    background: $white;
+
+    @include flex-container(column, nowrap, center, center);
+
+    border-radius: 7px;
+
+    border: 1px solid $black-100;
+
+    transition: all 200ms ease-in-out;
+
+    padding: 10px 20px;
+
+}

@@ -1,0 +1,58 @@
+
+@import "./styles/abstracts/_colors.scss";
+@import "./styles/base/_typography.scss";
+@import "./styles/base/_mixins.scss";
+
+// button container styles
+
+.button {
+    padding: 10px 20px;
+    border-radius: 7px;
+
+    @include flex-container(row, nowrap, center, center);
+    gap: 7px;
+}
+
+.fullWidth {
+    flex: 1;
+}
+
+
+.primary {
+    background: $secondary;
+}
+
+.secondary {
+    background: $secondary-100;
+}
+
+
+// button text styles
+
+.title {
+
+    @include text-sm-medium;
+}
+
+.titlePrimary {
+    color: $white;
+}
+
+.titleSecondary {
+    color: $secondary;
+}
+
+
+// button icon styles
+
+.icon {
+    @include small-icon;
+}
+
+.iconPrimary {
+    color: $white;
+}
+
+.iconSecondary {
+    color: $secondary;
+}

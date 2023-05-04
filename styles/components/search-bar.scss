@@ -1,0 +1,105 @@
+@import "./styles/abstracts/_colors.scss";
+@import "./styles/base/_typography.scss";
+@import "./styles/base/_mixins.scss";
+
+.searchBar {
+
+    width: 100%;
+    height: 60px;
+    background: $white;
+
+    @include flex-container(column, nowrap, center, center);
+
+    border-radius: 30px;
+
+    @include spread-shadow($black, 0.4);
+
+    transition: all 200ms ease-in-out;
+
+}
+
+.inputContainer {
+
+    @include flex-container(row, nowrap, space-between, center);
+    gap: 7px;
+    width: 100%;
+
+
+    padding: 10px 20px;
+}
+
+.icon {
+    @include small-icon;
+    color: $black-400;
+}
+
+
+.input {
+    @include button-text;
+    flex: 1;
+}
+
+.containerFocus {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $black-400;
+    backdrop-filter: blur(25px);
+
+    @include flex-container(column, nowrap, flex-start, center);
+    padding: 20% 16px 64px;
+}
+
+.searchBarFocus {
+
+
+    height: 290px;
+
+    @include flex-container(column, nowrap, flex-start, flex-start);
+
+    border-radius: 16px;
+
+    @include spread-shadow($primary, 0.2);
+
+}
+
+.formContainer {
+    flex: 1;
+    width: 100%;
+    @include flex-container(column, nowrap, flex-start, flex-start);
+    gap: 16px;
+    padding: 16px;
+}
+
+
+
+.divider {
+
+    width: 100%;
+    height: 1px;
+    background: $black-100;
+}
+
+
+
+.buttonsContainer {
+    width: 100%;
+    flex:1;
+    @include flex-container(row, nowrap, center, flex-end);
+    gap: 7px;
+}
+
+
+.filterLabel {
+    @include text-md-medium;
+
+}
+
+
+.emptyListMessage {
+    @include text-sm-medium;
+    color: $black-400;
+}
