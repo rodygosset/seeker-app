@@ -3,7 +3,7 @@ import { TextInput, View, Text } from "react-native"
 
 import styles from "@styles/components/search-bar.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
-import { faArrowUpRightFromSquare, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { faArrowUpRightFromSquare, faSearch, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useRef, useState } from "react"
 import Button from "./button"
 import { Artist } from "@utils/types"
@@ -75,12 +75,6 @@ const SearchBar = () => {
                         <View style={styles.divider} />
                         <View style={styles.formContainer}>
                             <Text style={styles.filterLabel}>Filter by artist</Text>
-                            {
-                                !artist ?
-                                <Text style={styles.emptyListMessage}>No artist selected</Text>
-                                :
-                                <Text style={styles.artistName}>{artist.artistName}</Text>
-                            }
                             <ArtistSelect onSelect={setArtist} />
                             <View style={styles.buttonsContainer}>
                                 <Button

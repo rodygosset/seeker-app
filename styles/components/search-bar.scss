@@ -56,7 +56,7 @@
 .searchBarFocus {
 
 
-    height: 290px;
+    height: 210px;
 
     @include flex-container(column, nowrap, flex-start, flex-start);
 
@@ -103,3 +103,4 @@
     @include text-sm-medium;
     color: $black-400;
 }
+

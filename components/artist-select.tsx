@@ -1,5 +1,5 @@
 import { Artist, QueryResult } from "@utils/types"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import styles from "@styles/components/artist-select.scss"
 import DropDownPicker from "react-native-dropdown-picker"
@@ -10,7 +10,19 @@ const getArtistList = async (query: string) => {
     const url = `https://itunes.apple.com/search?term=${query}&entity=musicArtist`
     const response = await fetch(url)
     const data: QueryResult<Artist> = await response.json()
-    return data.results
+    return [
+        { 
+            artistId: 0, 
+            artistName: "All artists",
+            artistLinkUrl: "",
+            primaryGenreName: "",
+            primaryGenreId: 0,
+            wrapperType: "artist",
+            artistType: "Artist",
+            
+        },
+        ...data.results
+    ]
 }
 
 
@@ -32,6 +44,7 @@ const ArtistSelect = (
 
     const handleArtistSearch = async (query: string) => {
         const list = await getArtistList(query)
+        // @ts-ignore
         setArtists(list)
     }
 
@@ -66,15 +79,17 @@ const ArtistSelect = (
             setOpen={setIsOpen}
             setValue={setCurrentArtistId}
             searchable
+            placeholder="Find an artist by name"
             searchPlaceholder={placeholder}
             onChangeSearchText={handleArtistSearch}
             // styles
 
-            style={styles.container}
+            style={styles.selectContainer}
             placeholderStyle={styles.placeholder}
             searchTextInputStyle={styles.searchTextInput}
             searchContainerStyle={styles.searchContainer}
             dropDownContainerStyle={styles.dropDownContainer}
+            listItemLabelStyle={styles.listItemLabel}
         />
     )
 }

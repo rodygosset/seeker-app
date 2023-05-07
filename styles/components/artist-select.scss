@@ -3,6 +3,11 @@
 @import "./styles/base/_mixins.scss";
 
 
+.container {
+    width: 100%;
+    @include flex-container(row, nowrap, flex-start, center);
+    gap: 7px;
+}
 
 .placeholder, .searchTextInput {
     @include button-text;
@@ -13,6 +18,17 @@
     padding: 7px 16px;
 }
 
-.container, .searchContainer, .dropDownContainer, .searchTextInput {
+
+.selectContainer, .searchContainer, .dropDownContainer, .searchTextInput {
     border-color: $black-100;
+}
+
+
+.searchContainer {
+    border-bottom-color: $black-100;
+}
+
+.listItemLabel {
+    @include button-text;
+    color: $black;
 }
