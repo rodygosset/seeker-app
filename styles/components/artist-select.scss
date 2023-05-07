@@ -3,18 +3,16 @@
 @import "./styles/base/_mixins.scss";
 
 
-.container {
-    width: 100%;
-    background: $white;
 
-    @include flex-container(column, nowrap, center, center);
+.placeholder, .searchTextInput {
+    @include button-text;
+    color: $black-400;
+}
 
-    border-radius: 7px;
+.searchTextInput {
+    padding: 7px 16px;
+}
 
-    border: 1px solid $black-100;
-
-    transition: all 200ms ease-in-out;
-
-    padding: 10px 20px;
-
+.container, .searchContainer, .dropDownContainer, .searchTextInput {
+    border-color: $black-100;
 }

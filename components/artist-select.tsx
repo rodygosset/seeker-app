@@ -1,10 +1,7 @@
 import { Artist, QueryResult } from "@utils/types"
 import { useEffect, useState } from "react"
-import { TextInput, View } from "react-native"
 
 import styles from "@styles/components/artist-select.scss"
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import DropDownPicker from "react-native-dropdown-picker"
 
 
@@ -24,7 +21,6 @@ interface Props {
 const ArtistSelect = (
     { onSelect }: Props
 ) => {
-
 
     // state
 
@@ -72,6 +68,13 @@ const ArtistSelect = (
             searchable
             searchPlaceholder={placeholder}
             onChangeSearchText={handleArtistSearch}
+            // styles
+
+            style={styles.container}
+            placeholderStyle={styles.placeholder}
+            searchTextInputStyle={styles.searchTextInput}
+            searchContainerStyle={styles.searchContainer}
+            dropDownContainerStyle={styles.dropDownContainer}
         />
     )
 }
