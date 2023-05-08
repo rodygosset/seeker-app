@@ -19,3 +19,10 @@ export interface Artist {
     primaryGenreName: string;
     primaryGenreId: number;
 }
+
+export interface Song {
+    wrapperType: "track";
+    trackName: string;
+    artistName: string;
+    artworkUrl100: string;
+}
