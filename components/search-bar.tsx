@@ -3,17 +3,24 @@ import { TextInput, View, Text } from "react-native"
 
 import styles from "@styles/components/search-bar.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
-import { faArrowUpRightFromSquare, faSearch, faXmark } from "@fortawesome/free-solid-svg-icons"
-import { useEffect, useRef, useState } from "react"
+import { faArrowUpRightFromSquare, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { useContext, useEffect, useRef, useState } from "react"
 import Button from "./button"
-import { Artist } from "@utils/types"
 import ArtistSelect from "./artist-select"
+import { Context } from "@utils/context"
 
-const SearchBar = () => {
+interface Props {
+    onSearch: () => void
+}
 
-
-    const [artist, setArtist] = useState<Artist>()
+const SearchBar = (
+    { onSearch }: Props
+) => {
     
+
+    // get search query accessors from context
+
+    const { query, setQuery } = useContext(Context)
 
     // when the search input is focused on
     // update the placeholder and show the form
@@ -67,6 +74,8 @@ const SearchBar = () => {
                         placeholder={placeholder}
                         onPressIn={focus}
                         ref={inputRef}
+                        value={query}
+                        onChangeText={setQuery}
                     />
                 </View>
                 {
@@ -75,7 +84,7 @@ const SearchBar = () => {
                         <View style={styles.divider} />
                         <View style={styles.formContainer}>
                             <Text style={styles.filterLabel}>Filter by artist</Text>
-                            <ArtistSelect onSelect={setArtist} />
+                            <ArtistSelect />
                             <View style={styles.buttonsContainer}>
                                 <Button
                                     title="Close"
@@ -86,7 +95,7 @@ const SearchBar = () => {
                                 <Button
                                     title="Show results"
                                     icon={faArrowUpRightFromSquare}
-                                    onPress={loseFocus}
+                                    onPress={onSearch}
                                     fullWidth
                                 />
                             </View>

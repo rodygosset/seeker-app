@@ -29,7 +29,10 @@ const Home = ({ navigation }: ScreenProps) => {
                 <Text style={styles.text}>Seeker</Text>
                 <Text style={styles.caption}>FIND THE MUSIC YOU’RE LOOKING FOR</Text>
             </View>
-            <SearchBar/>
+            <SearchBar
+                // @ts-ignore
+                onSearch={() => navigation.navigate("Explore")}
+            />
         </View>
 	)
 }

@@ -1,38 +1,23 @@
 import { Artist, QueryResult } from "@utils/types"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 import styles from "@styles/components/artist-select.scss"
 import DropDownPicker from "react-native-dropdown-picker"
+import { Context } from "@utils/context"
 
 
-const getArtistList = async (query: string) => {
+const getArtistList = (query: string) => {
     if(!query) return Promise.resolve([])
     const url = `https://itunes.apple.com/search?term=${query}&entity=musicArtist`
-    const response = await fetch(url)
-    const data: QueryResult<Artist> = await response.json()
-    return [
-        { 
-            artistId: 0, 
-            artistName: "All artists",
-            artistLinkUrl: "",
-            primaryGenreName: "",
-            primaryGenreId: 0,
-            wrapperType: "artist",
-            artistType: "Artist",
-            
-        },
-        ...data.results
-    ]
+    return fetch(url).then(res => res.json()).then((data: QueryResult<Artist>) => data.results)
 }
 
 
-interface Props {
-    onSelect: (artist: Artist) => void
-}
+const ArtistSelect = () => {
 
-const ArtistSelect = (
-    { onSelect }: Props
-) => {
+    // get search query accessors from context
+
+    const { setArtistName } = useContext(Context)
 
     // state
 
@@ -40,6 +25,18 @@ const ArtistSelect = (
 
     const [currentArtistId, setCurrentArtistId] = useState<number>()
     
+    // effects
+
+    // update the artist name when the artist id changes
+
+    useEffect(() => {
+        if(currentArtistId) {
+            const artistName = getArtistNameFromId(currentArtistId)
+            setArtistName(artistName || "")
+        }
+    }, [currentArtistId])
+
+
     // handlers
 
     const handleArtistSearch = async (query: string) => {
@@ -48,14 +45,7 @@ const ArtistSelect = (
         setArtists(list)
     }
 
-
-    const handleArtistSelect = (value: number) => {
-        const artist = artists.find(artist => artist.artistId === value)
-        if(artist) {
-            onSelect(artist)
-        }
-    }
-
+    
     // handle dropdown
 
     const [isOpen, setIsOpen] = useState(false)
@@ -68,6 +58,11 @@ const ArtistSelect = (
         label: artist.artistName,
         value: artist.artistId
     }))
+
+    const getArtistNameFromId = (id: number) => {
+        const artist = artists.find(artist => artist.artistId === id)
+        return artist?.artistName
+    }
 
     // render
 
