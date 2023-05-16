@@ -12,6 +12,7 @@
 
     border-radius: 30px;
 
+    
     @include spread-shadow($black, 0.4);
 
     transition: all 200ms ease-in-out;
@@ -90,6 +91,7 @@
     flex:1;
     @include flex-container(row, nowrap, center, flex-end);
     gap: 7px;
+    z-index: -1;
 }
 
 

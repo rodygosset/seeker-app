@@ -4,6 +4,7 @@
 
 
 .container {
+    z-index: 99;
     width: 100%;
     @include flex-container(row, nowrap, flex-start, center);
     gap: 7px;
@@ -16,6 +17,10 @@
 
 .searchTextInput {
     padding: 7px 16px;
+}
+
+.selectContainer {
+    z-index: 99;
 }
 
 

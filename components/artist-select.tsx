@@ -9,7 +9,10 @@ import { Context } from "@utils/context"
 const getArtistList = (query: string) => {
     if(!query) return Promise.resolve([])
     const url = `https://itunes.apple.com/search?term=${query}&entity=musicArtist`
-    return fetch(url).then(res => res.json()).then((data: QueryResult<Artist>) => data.results)
+    return fetch(url).then(res => res.json()).then((data: QueryResult<Artist>) => data.results).catch((e) => {
+        console.log("error fetching artist list => ", e)
+        return []
+    })
 }
 
 
@@ -17,11 +20,12 @@ const ArtistSelect = () => {
 
     // get search query accessors from context
 
-    const { setArtistName } = useContext(Context)
+    const { artistName, setArtistName } = useContext(Context)
 
     // state
 
     const [artists, setArtists] = useState<Artist[]>([])
+    const [options, setOptions] = useState<{ label: string, value: number }[]>([])
 
     const [currentArtistId, setCurrentArtistId] = useState<number>()
     
@@ -31,11 +35,30 @@ const ArtistSelect = () => {
 
     useEffect(() => {
         if(currentArtistId) {
-            const artistName = getArtistNameFromId(currentArtistId)
-            setArtistName(artistName || "")
+            const selectedArtistName = getArtistNameFromId(currentArtistId)
+            if(selectedArtistName == artistName) return
+            setArtistName(selectedArtistName || "")
         }
     }, [currentArtistId])
 
+    useEffect(() => {
+        if(artistName) {
+            // keep the artist id up to date with the artist name
+            // that requires keeping the artist list up to date
+            getArtistList(artistName).then(artistList => {
+                setArtists(artistList)
+                const artist = artistList.find(artist => artist.artistName === artistName)
+                if(artist && artist.artistId != currentArtistId) setCurrentArtistId(artist.artistId)
+            })
+        }
+    }, [artistName])
+
+
+    // update the dropdown options when the artist list changes
+
+    useEffect(() => {
+        setOptions(getOptions())
+    }, [artists])
 
     // handlers
 
@@ -59,6 +82,7 @@ const ArtistSelect = () => {
         value: artist.artistId
     }))
 
+
     const getArtistNameFromId = (id: number) => {
         const artist = artists.find(artist => artist.artistId === id)
         return artist?.artistName
@@ -70,7 +94,7 @@ const ArtistSelect = () => {
         <DropDownPicker
             open={isOpen}
             value={currentArtistId || null}
-            items={getOptions()}
+            items={options}
             setOpen={setIsOpen}
             setValue={setCurrentArtistId}
             searchable
@@ -78,7 +102,6 @@ const ArtistSelect = () => {
             searchPlaceholder={placeholder}
             onChangeSearchText={handleArtistSearch}
             // styles
-
             style={styles.selectContainer}
             placeholderStyle={styles.placeholder}
             searchTextInputStyle={styles.searchTextInput}

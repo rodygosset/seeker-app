@@ -11,6 +11,7 @@
 
     @include flex-container(row, nowrap, center, center);
     gap: 7px;
+    height: 37px;
 }
 
 .fullWidth {

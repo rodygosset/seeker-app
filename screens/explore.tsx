@@ -1,19 +1,26 @@
 import { useFocusEffect } from "@react-navigation/native"
 import { Context } from "@utils/context"
-import { QueryResult, Song } from "@utils/types"
+import { QueryResult, ScreenProps, Song } from "@utils/types"
 import { useCallback, useContext, useEffect, useState } from "react"
-import { View, Text } from "react-native"
+import { View } from "react-native"
+
+import styles from "@styles/screens/explore.scss"
+import Nav from "@components/layout/nav"
+import SearchBar from "@components/search-bar"
 
 
 const getSearchResults = (query: string, artistName: string) => {
 
     // get the search results from the iTunes API
 
-    const url = `https://itunes.apple.com/search?term=${query}+${artistName}&entity=musicTrack&limit=50`
-    return fetch(url).then(res => res.json()).then((data: QueryResult<Song>) => data.results)
+    const url = `https://itunes.apple.com/search?term=${artistName}+${query}&entity=musicTrack&limit=50`
+    return fetch(url).then(res => res.json()).then((data: QueryResult<Song>) => data.results).catch(err => {
+        console.error(err)
+        return []
+    })
 }
 
-const Explore = () => {
+const Explore = ({ navigation }: ScreenProps) => {
 
     // get search context
 
@@ -23,25 +30,30 @@ const Explore = () => {
 
     const [results, setResults] = useState<Song[]>([])
 
+    const refreshResults = () => { getSearchResults(query, artistName || "").then(setResults) }
+
     // when the screen is focused on
     // get the results from the iTunes API
 
-    useFocusEffect(useCallback(() => {
-        
-        getSearchResults(query, artistName || "").then(setResults)
-
-    }, [query, artistName]))
+    useFocusEffect(useCallback(refreshResults, [query, artistName]))
 
     // console the results when they change
 
-    useEffect(() => console.log("search results => ", results), [results])
+    // useEffect(() => console.log("search results => ", JSON.stringify(results, null, 4)), [results])
 
 
     // render
 
     return (
-        <View>
-            <Text>Hello</Text>
+        <View style={styles.container}>
+            <Nav 
+                currentScreen="Explore" 
+                goBack={navigation.goBack} 
+            />
+            <SearchBar
+                // @ts-ignore
+                onSearch={() => refreshResults()}
+            />
         </View>
     )
 }

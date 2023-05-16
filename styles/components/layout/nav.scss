@@ -1,0 +1,31 @@
+@import "./styles/abstracts/_colors.scss";
+@import "./styles/base/_typography.scss";
+@import "./styles/base/_mixins.scss";
+
+.nav {
+
+    @include flex-container(row, nowrap, space-between, center);
+    gap: 16px;
+    width: 100%;
+}
+
+.screenInfoContainer {
+    @include flex-container(column, nowrap, center, flex-start);
+    gap: 7px;
+    flex: 1;
+}
+
+.screenName {
+    @include text-md-medium;
+    color: $black;
+}
+
+.caption {
+    @include text-sm-regular;
+    color: $black-400;
+}
+
+.appName {
+    @include text-xl-medium;
+    color: $primary;
+}

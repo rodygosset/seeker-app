@@ -62,6 +62,11 @@ const SearchBar = (
     const focus = () => setIsFocused(true)
     const loseFocus = () => setIsFocused(false)
 
+    const handleSearch = () => {
+        onSearch()
+        loseFocus()
+    }
+
     // render
 
     return (
@@ -95,7 +100,7 @@ const SearchBar = (
                                 <Button
                                     title="Show results"
                                     icon={faArrowUpRightFromSquare}
-                                    onPress={onSearch}
+                                    onPress={handleSearch}
                                     fullWidth
                                 />
                             </View>

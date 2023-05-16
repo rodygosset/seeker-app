@@ -1,0 +1,13 @@
+
+@import "./styles/abstracts/_colors.scss";
+@import "./styles/base/_typography.scss";
+@import "./styles/base/_mixins.scss";
+
+.container {
+
+    @extend .screenContainer;
+    justify-content: flex-start;
+    gap: 30px;
+    padding: 48px 16px;
+
+}
