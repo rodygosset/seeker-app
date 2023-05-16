@@ -1,0 +1,14 @@
+@import "./styles/abstracts/_colors.scss";
+@import "./styles/base/_typography.scss";
+@import "./styles/base/_mixins.scss";
+
+.likeButton {
+    width: 60px;
+    height: 60px;
+    @include flex-container(row, nowrap, center, center);
+}
+
+.likeIcon {
+    @include medium-icon;
+    color: $secondary;
+}

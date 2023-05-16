@@ -1,12 +1,13 @@
 import { useFocusEffect } from "@react-navigation/native"
 import { Context } from "@utils/context"
 import { QueryResult, ScreenProps, Song } from "@utils/types"
-import { useCallback, useContext, useEffect, useState } from "react"
-import { View } from "react-native"
+import { useCallback, useContext, useState } from "react"
+import { FlatList, View } from "react-native"
 
 import styles from "@styles/screens/explore.scss"
 import Nav from "@components/layout/nav"
 import SearchBar from "@components/search-bar"
+import SongListItem from "@components/song-list-item"
 
 
 const getSearchResults = (query: string, artistName: string) => {
@@ -24,7 +25,7 @@ const Explore = ({ navigation }: ScreenProps) => {
 
     // get search context
 
-    const { query, setQuery, artistName, setArtistName } = useContext(Context)
+    const { query, artistName } = useContext(Context)
 
     // state
 
@@ -53,6 +54,13 @@ const Explore = ({ navigation }: ScreenProps) => {
             <SearchBar
                 // @ts-ignore
                 onSearch={() => refreshResults()}
+            />
+
+            <FlatList
+                style={styles.list}
+                data={results}
+                renderItem={({ item, index }) => <SongListItem song={item} isLast={index == results.length - 1} />}
+                keyExtractor={(item, index) => `${item.trackName}-${index}`}
             />
         </View>
     )

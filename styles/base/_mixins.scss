@@ -60,6 +60,11 @@
     height: 14px;
 }
 
+@mixin medium-icon {
+    width: 20px;
+    height: 20px;
+}
+
 .screenContainer {
 
     width: 100%;
