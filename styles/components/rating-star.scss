@@ -1,0 +1,9 @@
+@import "./styles/abstracts/_colors.scss";
+@import "./styles/base/_typography.scss";
+@import "./styles/base/_mixins.scss";
+
+.star {
+    @include large-icon;
+    color: $secondary;
+    margin-left: 8px;
+}

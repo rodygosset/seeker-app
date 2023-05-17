@@ -65,6 +65,11 @@
     height: 20px;
 }
 
+@mixin large-icon {
+    width: 24px;
+    height: 24px;
+}
+
 .screenContainer {
 
     width: 100%;

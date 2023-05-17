@@ -8,14 +8,20 @@ import { TouchableOpacity } from "react-native"
 interface Props {
     onToggleLike: () => void;
     liked: boolean;
+    dark?: boolean;
 }
 
 const LikeButton = (
     {
         onToggleLike, 
-        liked
+        liked,
+        dark
     }: Props
 ) => {
+
+    const getStyles = () => {
+        return dark ? { ...styles.likeIcon, ...styles.dark } : styles.likeIcon
+    }
 
     // render
 
@@ -23,7 +29,7 @@ const LikeButton = (
         <TouchableOpacity
             style={styles.likeButton}
             onPress={onToggleLike}>
-            <FontAwesomeIcon icon={ liked ? faHeartSolid : faHeartRegular} size={24} style={styles.likeIcon}/>
+            <FontAwesomeIcon icon={ liked ? faHeartSolid : faHeartRegular} size={24} style={getStyles()}/>
         </TouchableOpacity>
     )
 

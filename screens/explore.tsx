@@ -12,13 +12,15 @@ import SongListItem from "@components/song-list-item"
 
 const getSearchResults = (query: string, artistName: string) => {
 
+    const handleErr = (err: any) => {
+        console.error(err)
+        return []
+    }
+
     // get the search results from the iTunes API
 
     const url = `https://itunes.apple.com/search?term=${artistName}+${query}&entity=musicTrack&limit=50`
-    return fetch(url).then(res => res.json()).then((data: QueryResult<Song>) => data.results).catch(err => {
-        console.error(err)
-        return []
-    })
+    return fetch(url).then(res => res.json()).then((data: QueryResult<Song>) => data.results).catch(handleErr)
 }
 
 const Explore = ({ navigation }: ScreenProps) => {
@@ -38,11 +40,6 @@ const Explore = ({ navigation }: ScreenProps) => {
 
     useFocusEffect(useCallback(refreshResults, [query, artistName]))
 
-    // console the results when they change
-
-    // useEffect(() => console.log("search results => ", JSON.stringify(results, null, 4)), [results])
-
-
     // render
 
     return (
@@ -59,7 +56,14 @@ const Explore = ({ navigation }: ScreenProps) => {
             <FlatList
                 style={styles.list}
                 data={results}
-                renderItem={({ item, index }) => <SongListItem song={item} isLast={index == results.length - 1} />}
+                renderItem={({ item, index }) => (
+                    <SongListItem 
+                        song={item} 
+                        isLast={index == results.length - 1} 
+                        // @ts-ignore
+                        onPress={() => navigation.navigate("SongView", { song: item })}
+                    />
+                )}
                 keyExtractor={(item, index) => `${item.trackName}-${index}`}
             />
         </View>

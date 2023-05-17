@@ -1,0 +1,90 @@
+@import "./styles/abstracts/_colors.scss";
+@import "./styles/base/_typography.scss";
+@import "./styles/base/_mixins.scss";
+
+.container {
+
+    @extend .screenContainer;
+    justify-content: flex-start;
+    gap: 32px;
+    padding: 48px 16px 32px;
+
+}
+
+.card {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background-color: $black;
+    @include spread-shadow($black, 0.4, 30px, 60px);
+    position: relative;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.gradient {
+    position: absolute;
+    aspect-ratio: 1;
+    top: 0;
+    left: 0;
+}
+
+
+.trackInfo {
+
+    @include flex-container(row, nowrap, space-between, center);
+    gap: 16px;
+    padding: 16px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.left {
+    @include flex-container(column, nowrap, center, flex-start);
+    gap: 8px;
+    flex: 1;
+}
+
+.trackName {
+    @include header-3-regular;
+    color: $white;
+}
+
+.artistName {
+    @include text-md-regular;
+    color: $white-600;
+}
+
+
+.ratingInfo {
+    margin: auto 0;
+    @include flex-container(column, nowrap, center, flex-start);
+    gap: 16px;
+    width: 100%;
+}
+
+.sectionTitle {
+    @include text-xl-medium;
+    color: $black;
+}
+
+.notLikedMessage {
+    @include text-md-regular;
+    color: $black-400;
+    width: 100%;
+}
+
+.button {
+    width: 100%;
+    height: 50px;
+    // margin-top: auto;
+    @include spread-shadow($black, 0.4, 30px, 60px);
+}

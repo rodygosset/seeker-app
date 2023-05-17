@@ -8,11 +8,14 @@ import { Context } from "@utils/context"
 
 const getArtistList = (query: string) => {
     if(!query) return Promise.resolve([])
-    const url = `https://itunes.apple.com/search?term=${query}&entity=musicArtist`
-    return fetch(url).then(res => res.json()).then((data: QueryResult<Artist>) => data.results).catch((e) => {
-        console.log("error fetching artist list => ", e)
+
+    const handleErr = (err: any) => {
+        console.error(err)
         return []
-    })
+    }
+
+    const url = `https://itunes.apple.com/search?term=${query}&entity=musicArtist`
+    return fetch(url).then(res => res.json()).catch(handleErr).then((data: QueryResult<Artist>) => data.results).catch(handleErr)
 }
 
 

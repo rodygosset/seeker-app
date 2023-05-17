@@ -3,26 +3,65 @@ import { View, Text, Image, TouchableOpacity } from "react-native"
 
 import styles from "@styles/components/song-list-item.scss"
 import LikeButton from "./like-button"
+import { Context } from "@utils/context";
+import { useContext, useEffect, useState } from "react";
 
 
 interface Props {
     song: Song;
     isLast?: boolean;
+    onPress: () => void;
 }
 
 const SongListItem = (
     {
         song,
-        isLast
+        isLast,
+        onPress
     }: Props
 ) => {
+
+    // state
+
+    const [isLiked, setIsLiked] = useState(false)
+
+    // get liked songs from context
+
+    const { likedSongs, setLikedSongs } = useContext(Context)
+
+    // check if the current song is liked
+
+    const isSongLiked = () => likedSongs.some(likedSong => likedSong.song.trackId == song.trackId)
+
+    useEffect(() => {
+        setIsLiked(isSongLiked())
+    }, [likedSongs])
+    
+
+    // handlers
+
+    // add the current song to the liked songs
+
+    const handleLikeToggle = () => {
+        let newList = [...likedSongs]
+        if(isLiked) {
+            // remove the song from the list
+            newList = newList.filter(likedSong => likedSong.song.trackId != song.trackId)
+        }
+        else {
+            newList.push({ song, rating: 0 })
+        }
+        setLikedSongs(newList)
+        // optimistically update the state
+        setIsLiked(!isLiked)
+    }
 
 
     // render
 
     return (
         <>
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={onPress}>
                 <Image
                     style={styles.thumbnail}
                     source={{
@@ -34,8 +73,8 @@ const SongListItem = (
                     <Text style={styles.artistName}>{ song.artistName }</Text>
                 </View>
                 <LikeButton 
-                    onToggleLike={() => {}}
-                    liked={false}
+                    onToggleLike={handleLikeToggle}
+                    liked={isLiked}
                 />
             </TouchableOpacity>
             {

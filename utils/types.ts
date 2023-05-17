@@ -21,8 +21,15 @@ export interface Artist {
 }
 
 export interface Song {
+    trackId: number;
     wrapperType: "track";
     trackName: string;
     artistName: string;
     artworkUrl100: string;
+    trackViewUrl: string;
+}
+
+export interface LikedSong {
+    song: Song;
+    rating: number;
 }
