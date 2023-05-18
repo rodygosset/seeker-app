@@ -13,7 +13,7 @@ import SongListItem from "@components/song-list-item"
 const getSearchResults = (query: string, artistName: string) => {
 
     const handleErr = (err: any) => {
-        console.error(err)
+        console.log(err)
         return []
     }
 

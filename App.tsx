@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Explore from '@screens/explore';
 import Home from '@screens/home';
+import LikedSongsView from '@screens/liked-songs-view';
 import SongView from '@screens/song-view';
 import { Context, getPersistedLikedSongs, setPersistedLikedSongs } from '@utils/context';
 import { LikedSong } from '@utils/types';
@@ -64,6 +65,10 @@ export default function App() {
 					<Stack.Screen 
 						name="SongView" 
 						component={SongView}
+					/>
+					<Stack.Screen 
+						name="LikedSongs" 
+						component={LikedSongsView}
 					/>
 				</Stack.Navigator>
 			</NavigationContainer>

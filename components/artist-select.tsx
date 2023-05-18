@@ -7,10 +7,10 @@ import { Context } from "@utils/context"
 
 
 const getArtistList = (query: string) => {
-    if(!query) return Promise.resolve([])
+    if(!query) return Promise.resolve<Artist[]>([])
 
     const handleErr = (err: any) => {
-        console.error(err)
+        console.log(err)
         return []
     }
 
@@ -45,15 +45,17 @@ const ArtistSelect = () => {
     }, [currentArtistId])
 
     useEffect(() => {
-        if(artistName) {
-            // keep the artist id up to date with the artist name
-            // that requires keeping the artist list up to date
-            getArtistList(artistName).then(artistList => {
-                setArtists(artistList)
-                const artist = artistList.find(artist => artist.artistName === artistName)
-                if(artist && artist.artistId != currentArtistId) setCurrentArtistId(artist.artistId)
-            })
+        if(!artistName) {
+            setCurrentArtistId(undefined)
+            return
         }
+        // keep the artist id up to date with the artist name
+        // that requires keeping the artist list up to date
+        getArtistList(artistName).then(artistList => {
+            setArtists(artistList)
+            const artist = artistList.find(artist => artist.artistName === artistName)
+            if(artist && artist.artistId != currentArtistId) setCurrentArtistId(artist.artistId)
+        })
     }, [artistName])
 
 
@@ -80,10 +82,10 @@ const ArtistSelect = () => {
 
     const placeholder = "Find an artist by name"
 
-    const getOptions = () => artists.map(artist => ({
+    const getOptions = () => artists?.map(artist => ({
         label: artist.artistName,
         value: artist.artistId
-    }))
+    })) || []
 
 
     const getArtistNameFromId = (id: number) => {

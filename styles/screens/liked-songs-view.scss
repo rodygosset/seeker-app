@@ -1,0 +1,18 @@
+@import "./styles/abstracts/_colors.scss";
+@import "./styles/base/_typography.scss";
+@import "./styles/base/_mixins.scss";
+
+
+.container {
+
+    @extend .screenContainer;
+    justify-content: flex-start;
+    gap: 32px;
+    padding: 48px 16px 32px;
+
+}
+
+.list {
+    width: 100%;
+    z-index: -1;
+}

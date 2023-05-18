@@ -7,6 +7,7 @@ import { ScreenProps } from "@utils/types"
 import SearchBar from "@components/search-bar"
 
 import Logo from "@assets/seeker-logo.svg"
+import FloatingButton from "@components/floating-button"
 
 
 const Home = ({ navigation }: ScreenProps) => {
@@ -33,6 +34,8 @@ const Home = ({ navigation }: ScreenProps) => {
                 // @ts-ignore
                 onSearch={() => navigation.navigate("Explore")}
             />
+            { /* @ts-ignore */}
+            <FloatingButton onPress={() => navigation.navigate("LikedSongs")}/>
         </View>
 	)
 }

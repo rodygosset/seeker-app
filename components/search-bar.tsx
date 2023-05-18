@@ -20,7 +20,7 @@ const SearchBar = (
 
     // get search query accessors from context
 
-    const { query, setQuery } = useContext(Context)
+    const { query, setQuery, setArtistName } = useContext(Context)
 
     // when the search input is focused on
     // update the placeholder and show the form
@@ -57,6 +57,11 @@ const SearchBar = (
         return s
     }
 
+    const clearSearch = () => {
+        setQuery("")
+        setArtistName("")
+    }
+
     // handlers
 
     const focus = () => setIsFocused(true)
@@ -90,6 +95,15 @@ const SearchBar = (
                         <View style={styles.formContainer}>
                             <Text style={styles.filterLabel}>Filter by artist</Text>
                             <ArtistSelect />
+                            <Button
+                                title="Clear"
+                                onPress={clearSearch}
+                                role="secondary"
+                                style={{
+                                    width: "100%",
+                                    zIndex: -1
+                                }}
+                            />
                             <View style={styles.buttonsContainer}>
                                 <Button
                                     title="Close"

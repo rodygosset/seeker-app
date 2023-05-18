@@ -48,7 +48,6 @@ export const getPersistedLikedSongs = () => {
  */
 
 export const setPersistedLikedSongs = (data: LikedSong[]) => {
-    console.log("updating data")
     return AsyncStorage.setItem('@liked_songs', JSON.stringify(data)).catch(e => {
         console.log(e)
     }).then(() => getPersistedLikedSongs())
