@@ -19,7 +19,7 @@ const getSearchResults = (query: string, artistName: string) => {
 
     // get the search results from the iTunes API
 
-    const url = `https://itunes.apple.com/search?term=${artistName}+${query}&entity=musicTrack&limit=50`
+    const url = `https://itunes.apple.com/search?term=${artistName ? artistName + "+" + query : query}&entity=musicTrack&limit=50&${artistName ? "attribute=artistTerm" : ""}`
     return fetch(url).then(res => res.json()).then((data: QueryResult<Song>) => data.results).catch(handleErr)
 }
 
